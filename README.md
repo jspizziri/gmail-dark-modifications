@@ -1,6 +1,10 @@
 ﻿# Gmail Dark Theme Tweaks
 This style adds a dark theme to additional UI elements on the Gmail webpage. It also makes slight modifications to the appearance of certain elements, including restoring the red compose button.
 
+> **Fork.** Personal fork of [jackbuehner/gmail-dark-modifications](https://github.com/jackbuehner/gmail-dark-modifications).
+> Adds a `bg-color-surface` variable (`#2d2d2d`) so toolbars, headers and the Tasks/Keep/Calendar
+> chrome sit above the main background, plus a deeper email-body invert.
+
 There is also support for add-ons that add additional modifications (see bottom of description)
 
 THIS STYLE REQUIRES THE DARK THEME IN GMAIL
@@ -21,7 +25,7 @@ Modifications:
 - translucent search bar
 - colorful inbox, starred, and snooze icons in sidebar
 
-Do you have issues or suggestions? Submit an issue on the [issues tab](https://github.com/jackbuehner/gmail-dark-modifications/issues)
+Do you have issues or suggestions? Submit an issue on the [issues tab](https://github.com/jspizziri/gmail-dark-modifications/issues) (upstream: [jackbuehner](https://github.com/jackbuehner/gmail-dark-modifications/issues))
 
 Add-ons:<br>
 [Square Compose Button - Gmail 2018](https://userstyles.org/styles/159108)<br>
@@ -33,18 +37,56 @@ Add-ons:<br>
 
 Install [Stylus](https://add0n.com/stylus.html) for either [Firefox](https://addons.mozilla.org/en-US/firefox/addon/styl-us/), [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) or [Opera](https://addons.opera.com/en-gb/extensions/details/stylus/) and then install the style using one of these methods:
 
-📦 [Install the usercss](https://github.com/jackbuehner/gmail-dark-modifications/raw/master/gmail-dark.less.user.css), which supports full customization and automatic updates.<br>
-📦 [Install from userstyles.org](https://userstyles.org/styles/159026) with no customization or automatic updates.<br>
-📦 [Install manually from GitHub](https://github.com/jackbuehner/gmail-dark-modifications/raw/master/gmail-dark.css) with no customization or automatic updates, but useful for development. The style is in Mozilla format.<br>
+📦 [Install the usercss](https://raw.githubusercontent.com/jspizziri/gmail-dark-modifications/master/dist/gmail-dark.less.user.css), which supports full customization and automatic updates.<br>
+📦 [Install manually from GitHub](https://raw.githubusercontent.com/jspizziri/gmail-dark-modifications/master/dist/gmail-dark.css) with no customization or automatic updates, but useful for development. The style is in Mozilla format.<br>
 
 
-If you would like to contribute to this repository, please...
+## Development
 
-1. Fork this repository
-1. Make your changes
-1. Create a pull request
+**`source.less` is the only file you edit.** Everything in `dist/` is generated from it,
+and `npm run build` overwrites it — changes made directly to a dist file are lost.
+
+```
+source.less ──┬─ lessc ─────────────────► dist/gmail-dark.css            Mozilla format, manual install
+              └─ comment strip-block ───► dist/gmail-dark.less.user.css  usercss, what Stylus installs
+```
+
+`dist/` is committed on purpose — Stylus fetches the usercss straight from the raw GitHub URL,
+so the built files have to be in the repo.
+
+```sh
+npm install          # once
+npm run build        # regenerate both dists
+npm run check        # verify dist/ matches source.less (exits 1 if stale)
+```
+
+The `//<<<usercss-strip` / `//>>>usercss-strip` markers in `source.less` wrap the fallback
+variable block. It stays live in the source so `lessc` can compile standalone, and is
+commented out in the usercss so Stylus's `@var` declarations supply the values instead.
+
+### Releasing
+
+```sh
+npm run release -- patch     # or minor / major / an explicit x.y.z
+git push origin master --follow-tags
+```
+
+This bumps `@version`, rebuilds, commits and tags. **The bump is the whole point:** Stylus
+compares `@version` to decide whether an update exists, so pushing changed CSS without
+bumping leaves every installed copy reporting itself up to date.
+
+Note that `@updateURL` in `source.less` points at *this* fork. If you re-fork, repoint it
+before installing, or the first update check will overwrite your changes with upstream's.
 
 ## Update Notes
+v2.5.3
+- fork: new `bg-color-surface` variable (`#2d2d2d`) for raised chrome — toolbars, compose tool
+  strip, loading screen, and the Tasks / Keep / Calendar headers and backgrounds
+- fork: deepen the email-body invert from 93.2% to 84.3137%
+- fork: transparent `.nH.btDi4d`; force white subject text on important threads (`.ha > .hP`)
+- fork: `@updateURL` now points at this fork
+- build: `npm run build` / `npm run release` generate `dist/` from `source.less`
+
 v2.5.2
 - fixed the white border around the message border
 

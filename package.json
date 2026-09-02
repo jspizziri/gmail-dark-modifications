@@ -1,0 +1,14 @@
+{
+  "name": "gmail-dark-modifications",
+  "version": "2.5.2",
+  "private": true,
+  "description": "Dark theme tweaks for Gmail, Tasks, Keep and Calendar (Stylus userstyle)",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "release": "node scripts/release.mjs"
+  },
+  "devDependencies": {
+    "less": "^4.2.0"
+  }
+}

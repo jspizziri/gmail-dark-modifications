@@ -1,11 +1,11 @@
 /* ==UserStyle==
 //TO GET FULL CUSTOMIZATION OF THIS STYLE, PLEASE ADD IT FROM THE GITHUB PAGE AS USERCSS
-@name           New Gmail Dark Theme Tweaks - Gmail 2018
-@namespace      Jack Buehner
-@homepageURL    https://github.com/jackbuehner/gmail-dark-modifications
-@supportURL     https://github.com/jackbuehner/gmail-dark-modifications/issues/
-@updateURL      https://raw.githubusercontent.com/jackbuehner/gmail-dark-modifications/master/gmail-dark.less.user.css
-@version        2.5.2
+@name           New Gmail Dark Theme Tweaks - Gmail 2018 (jspizziri fork)
+@namespace      github.com/jspizziri
+@homepageURL    https://github.com/jspizziri/gmail-dark-modifications
+@supportURL     https://github.com/jspizziri/gmail-dark-modifications/issues/
+@updateURL      https://raw.githubusercontent.com/jspizziri/gmail-dark-modifications/master/dist/gmail-dark.less.user.css
+@version        2.5.3
 @description    This style adds a dark theme to additional UI elements on the Gmail webpage. It also makes slight modifications to the appearance of certain elements, including restoring the red compose button.
 @author         Jack Buehner
 @license        CC BY-NC-SA 4.0
@@ -16,6 +16,7 @@
 @var    color       button-bg               'Accent color'                      #ff7c68
 @var    color       fab-bg                  'FAB background color'              #ff7c68
 @var    color       bg-color-1              'Main background color'             #111111
+@var    color       bg-color-surface        'Raised surface color'              #2d2d2d
 @var    color       bg-color-context        'Context menu background color'     #242424
 @var    color       bg-color-2              'Secondary background color'        #212121
 @var    color       bg-color-3              'Tertiary background color'         #363636

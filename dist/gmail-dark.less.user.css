@@ -1,13 +1,13 @@
-// out:gmail-dark.css,sourcemap:false,compress:false
+// out:dist/gmail-dark.css,sourcemap:false,compress:false
 
 /* ==UserStyle==
 //TO GET FULL CUSTOMIZATION OF THIS STYLE, PLEASE ADD IT FROM THE GITHUB PAGE AS USERCSS
-@name           New Gmail Dark Theme Tweaks - Gmail 2018
-@namespace      Jack Buehner
-@homepageURL    https://github.com/jackbuehner/gmail-dark-modifications
-@supportURL     https://github.com/jackbuehner/gmail-dark-modifications/issues/
-@updateURL      https://raw.githubusercontent.com/jackbuehner/gmail-dark-modifications/master/gmail-dark.less.user.css
-@version        2.5.2
+@name           New Gmail Dark Theme Tweaks - Gmail 2018 (jspizziri fork)
+@namespace      github.com/jspizziri
+@homepageURL    https://github.com/jspizziri/gmail-dark-modifications
+@supportURL     https://github.com/jspizziri/gmail-dark-modifications/issues/
+@updateURL      https://raw.githubusercontent.com/jspizziri/gmail-dark-modifications/master/dist/gmail-dark.less.user.css
+@version        2.5.3
 @description    This style adds a dark theme to additional UI elements on the Gmail webpage. It also makes slight modifications to the appearance of certain elements, including restoring the red compose button.
 @author         Jack Buehner
 @license        CC BY-NC-SA 4.0
@@ -18,6 +18,7 @@
 @var    color       button-bg               'Accent color'                      #ff7c68
 @var    color       fab-bg                  'FAB background color'              #ff7c68
 @var    color       bg-color-1              'Main background color'             #111111
+@var    color       bg-color-surface        'Raised surface color'              #2d2d2d
 @var    color       bg-color-context        'Context menu background color'     #242424
 @var    color       bg-color-2              'Secondary background color'        #212121
 @var    color       bg-color-3              'Tertiary background color'         #363636
@@ -76,6 +77,7 @@
 @label-border-rad: 0px;
 @button-bg: #ff7c68;
 @bg-color-1: #111;
+@bg-color-surface: #2d2d2d;
 @bg-color-context: #242424;
 @bg-color-2: #212121;
 @bg-color-3: #363636;
@@ -424,6 +426,9 @@
             filter: invert(100%);
         }
     }
+    .nH.btDi4d {
+        background-color: transparent;
+    }
     //labels
     .hU.hM {
         border-radius: @label-border-rad 0 0 @label-border-rad;
@@ -452,7 +457,7 @@
     .aju {
         height: 40px;
         padding-top: 20px;
-        background-color: @bg-color-1;
+        background-color: @bg-color-surface;
     }
     /*reply*/
     .ams.bkH::before, .hB, .mL {
@@ -483,6 +488,9 @@
     }
     .ha .a9q {
         opacity: .8;
+    }
+    .ha > .hP {
+        color: white !important;
     }
     //attachment
     .gW {
@@ -528,7 +536,7 @@
     }
     //invert and fix colors for email body
     .gs > div:not(.gE):not(.wj) {
-        filter: invert(93.2%) hue-rotate(180deg);
+        filter: invert(84.3137%) hue-rotate(180deg);
         background-color: #fff;
     }
     //re-adjust images
@@ -553,7 +561,7 @@
     /*buttons container*/
     .hx .h7 .gA,
     .wR > .amn{
-        background-color: @bg-color-1;
+        background-color: @bg-color-surface;
     }
     /*quick reply buttons*/
     .bra {
@@ -724,7 +732,7 @@
         border-right: none;
     }
     .T-P {
-        background-color: @bg-color-1;
+        background-color: @bg-color-surface;
         border-color: @bg-color-1;
         .a7V {
             color: #dedede;
@@ -884,7 +892,7 @@
     }
 //QUICK COMPOSE (IN EMAIL)
     .Am.aO9 {
-        filter: invert(93.2%) hue-rotate(180deg);
+        filter: invert(84.3137%) hue-rotate(180deg);
         background-color: #fff;
     }
     .HM .et, .HM .btC, .IG, .aC3, .GP {
@@ -915,7 +923,7 @@
 //LOADING PAGE
     //background
     #loading {
-        background-color: @bg-color-1 !important;
+        background-color: @bg-color-surface !important;
     }
     //bottom right text
     .msgb {
@@ -927,7 +935,7 @@
 //ADDON SIDEBAR
     //header
     .brC-brG-avC {
-        background-color: #111;
+        background-color: @bg-color-surface;
         border-color: rgba(255,255,255,.12);
     }
     .brC-brG-a1P-K0 {
@@ -946,7 +954,7 @@
     }
     //splash screen
     .brC-brG-Jz-bBA, .brC-brG-bBB-JC, .brC-brG-bBB-K7, .brC-brG-a1R-JC, .brC-brG-a1R-K7, .brC-brG-Jz-bBA>svg {
-        background-color: @bg-color-1 !important;
+        background-color: @bg-color-surface !important;
         color: @text-color-9;
         fill: @text-color-9;
     }
@@ -992,7 +1000,7 @@
 /*TASKS*/
     /*header*/
     .B9yICe {
-        background-color: #111;
+        background-color: @bg-color-surface;
         border-color: rgba(255,255,255,.12);
     }
     .B6U1Oc {
@@ -1027,17 +1035,17 @@
     /*//----------//*/
 
     body {
-        background-color: #111;
+        background-color: @bg-color-surface;
         color: white;
     }
     /*list item background*/
 
     .kpuJe {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     .kpuJe.OOHrV,
     .PYj7ue {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     /*no list border*/
 
@@ -1155,7 +1163,7 @@
     /*date header*/
 
     .PZqXCe {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     .pRU5He {
         color: #fff;
@@ -1166,7 +1174,7 @@
     .g3VIld .rFrNMe .aXBtI {
         -moz-border-radius: 2px;
         border-radius: 2px;
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     .tL9Q4c,
     .zHQkBf {
@@ -1211,7 +1219,7 @@
 
     .cbcjjb, .oXBvod.MdU9l .Sze5Fc {
         border-top: 1px solid #212121;
-        background-color: #111;
+        background-color: @bg-color-surface;
         color: rgba(255, 255, 255, 0.8);
     }
     .AY4Dce:not(.sMVRZe), .oXBvod.MdU9l:not(.sMVRZe) {
@@ -1250,7 +1258,7 @@
 /*//GOOGLE KEEP//*/
     /*header*/
     .Kk7lMc-ae3xF-tJHJj {
-        background-color: #111;
+        background-color: @bg-color-surface;
         border-color: rgba(255,255,255,.12);
     }
     .Kk7lMc-ae3xF-VdSJob-fmcmS {
@@ -1267,7 +1275,7 @@
     }
     /*header searchbar*/
     .Kk7lMc-ae3xF-G0jgYd-haAclf {
-        background-color:#111
+        background-color:@bg-color-surface
     }
     .Kk7lMc-ae3xF-G0jgYd-YPqjbf {
         color: #9e9e9e
@@ -1291,7 +1299,7 @@
     /*background*/
 
     .Q0hgme-Q7GJAc-NkyfNe-RFnRab-LYNcwc {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     /*plain cards*/
 
@@ -1357,7 +1365,7 @@
     /*subbar*/
 
     .Q0hgme-Q7GJAc-NkyfNe-RFnRab-LYNcwc .Q0hgme-Q7GJAc-h1U9Be-xhiy4 {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     /*add task button*/
 
@@ -1399,7 +1407,7 @@
 /*//GOOGLE CALENDAR//*/
     /*header*/
     .cOoA8d {
-        background-color: #111;
+        background-color: @bg-color-surface;
         border-color: rgba(255,255,255,.12);
     }
     .NNmvKe {
@@ -1422,7 +1430,7 @@
     }
     /*background*/
     .NmajGc {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     /*title*/
     .ujFWBd {
@@ -1436,7 +1444,7 @@
     /*//main view//*/
     /*background color*/
     .v83gc, .GENA3c, .w61Ns, .Gk2izd, .cBs4Te, .IKYMIb, .erzbAb {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     /*white text*/
     .pCoqfc, .MANBAf {
@@ -1480,7 +1488,7 @@
     /*//edit event view//*/
     /*background color*/
     .jm1znd, .Mz3isd {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     /*title*/
     .xQ6AJ {
@@ -1518,7 +1526,7 @@
     /*//new event view//*/
     /*background color*/
     .JdqpXc {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
     /*box text entry, people dropdown*/
     .Kb2sf, .dKHeGf, .IIB0tc .ULpymb, .VOEIyf .jBmls, .Mfdus, .gHQcAb, .RWvJ9d, .W0m3G::before, .e3odF {
@@ -1569,7 +1577,7 @@
     /*//select calendars//*/
     /*background*/
     .g3VIld {
-        background-color: #111;
+        background-color: @bg-color-surface;
     }
 }
 @-moz-document url-prefix("https://mail.google.com/mail") {
