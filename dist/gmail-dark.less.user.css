@@ -7,7 +7,7 @@
 @homepageURL    https://github.com/jspizziri/gmail-dark-modifications
 @supportURL     https://github.com/jspizziri/gmail-dark-modifications/issues/
 @updateURL      https://raw.githubusercontent.com/jspizziri/gmail-dark-modifications/master/dist/gmail-dark.less.user.css
-@version        2.6.0
+@version        2.6.1
 @description    This style adds a dark theme to additional UI elements on the Gmail webpage. It also makes slight modifications to the appearance of certain elements, including restoring the red compose button.
 @author         Jack Buehner
 @license        CC BY-NC-SA 4.0
@@ -536,7 +536,7 @@
     }
     //invert and fix colors for email body
     .gs > div:not(.gE):not(.wj) {
-        filter: invert(84.3137%) hue-rotate(180deg);
+        filter: invert(82.7451%) hue-rotate(180deg);
         background-color: #fff;
     }
     //re-adjust images
@@ -892,7 +892,7 @@
     }
 //QUICK COMPOSE (IN EMAIL)
     .Am.aO9 {
-        filter: invert(84.3137%) hue-rotate(180deg);
+        filter: invert(82.7451%) hue-rotate(180deg);
         background-color: #fff;
     }
     .HM .et, .HM .btC, .IG, .aC3, .GP {

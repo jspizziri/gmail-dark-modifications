@@ -1,6 +1,6 @@
 {
   "name": "gmail-dark-modifications",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "private": true,
   "description": "Dark theme tweaks for Gmail, Tasks, Keep and Calendar (Stylus userstyle)",
   "scripts": {
