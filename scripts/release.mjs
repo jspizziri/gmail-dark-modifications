@@ -6,7 +6,7 @@
 //   npm run release -- major      2.5.3 -> 3.0.0
 //   npm run release -- 3.1.4      explicit version
 //
-// Stops before pushing; the push command is printed for you to run.
+// Bumps, rebuilds, commits, tags and pushes. Pass --no-push to stop before the push.
 //
 // The version bump is the point of this script: Stylus compares @version to
 // decide whether an update exists. Push changed CSS without bumping and every
@@ -24,13 +24,27 @@ const PKG = join(ROOT, 'package.json')
 const git = (...args) => execFileSync('git', args, { cwd: ROOT, encoding: 'utf8' }).trim()
 const fail = (msg) => { console.error(`✗ ${msg}`); process.exit(1) }
 
-const bump = process.argv[2]
-if (!bump) fail('usage: npm run release -- <patch|minor|major|x.y.z>')
+const args = process.argv.slice(2)
+const noPush = args.includes('--no-push')
+const bump = args.find((a) => !a.startsWith('--'))
+if (!bump) fail('usage: npm run release -- <patch|minor|major|x.y.z> [--no-push]')
 
 if (git('status', '--porcelain')) fail('working tree is dirty — commit or stash first')
 
 const branch = git('rev-parse', '--abbrev-ref', 'HEAD')
 if (branch !== 'master') fail(`on branch "${branch}", expected "master"`)
+
+// A push that fails after the commit and tag are made leaves an awkward mess to
+// unpick, so check we can fast-forward the remote before touching anything.
+if (!noPush) {
+  try {
+    git('fetch', 'origin', 'master', '--tags')
+  } catch {
+    fail('could not reach origin — fix the remote, or release with --no-push')
+  }
+  const behind = git('rev-list', '--count', 'HEAD..origin/master')
+  if (behind !== '0') fail(`local master is ${behind} commit(s) behind origin — pull first`)
+}
 
 const source = await readFile(SOURCE, 'utf8')
 const current = source.match(/^@version\s+(\S+)\s*$/m)?.[1]
@@ -64,5 +78,19 @@ git('commit', '-m', `release: ${tag}`)
 git('tag', '-a', tag, '-m', tag)
 
 console.log(`\n✓ committed and tagged ${tag}`)
-console.log(`\nPush it (this is what makes the update visible to Stylus):`)
-console.log(`    git push origin master --follow-tags`)
+
+if (noPush) {
+  console.log(`\nNot pushed (--no-push). Stylus will not see the update until you run:`)
+  console.log(`    git push origin master --follow-tags`)
+  process.exit(0)
+}
+
+try {
+  execFileSync('git', ['push', 'origin', 'master', '--follow-tags'],
+    { cwd: ROOT, stdio: 'inherit' })
+} catch {
+  fail(`push failed — ${tag} is committed and tagged locally, retry with:\n` +
+       `    git push origin master --follow-tags`)
+}
+
+console.log(`\n✓ pushed ${tag} — Stylus will pick it up on its next update check`)

@@ -67,11 +67,11 @@ commented out in the usercss so Stylus's `@var` declarations supply the values i
 ### Releasing
 
 ```sh
-npm run release -- patch     # or minor / major / an explicit x.y.z
-git push origin master --follow-tags
+npm run release -- patch              # or minor / major / an explicit x.y.z
+npm run release -- patch --no-push    # stop before pushing
 ```
 
-This bumps `@version`, rebuilds, commits and tags. **The bump is the whole point:** Stylus
+This bumps `@version`, rebuilds `dist/`, commits, tags and pushes. **The bump is the whole point:** Stylus
 compares `@version` to decide whether an update exists, so pushing changed CSS without
 bumping leaves every installed copy reporting itself up to date.
 
