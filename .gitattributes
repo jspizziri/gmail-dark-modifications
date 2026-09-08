@@ -1,5 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-# generated from source.less by `npm run build` — do not edit by hand
+# generated from src/ by `npm run build` — do not edit by hand
 dist/**  linguist-generated=true

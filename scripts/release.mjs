@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Cuts a release: bumps @version, rebuilds both dists, commits and tags.
+// Cuts a release: bumps @version in src/metadata.less, rebuilds both dists,
+// commits and tags.
 //
 //   npm run release -- patch      2.5.3 -> 2.5.4
 //   npm run release -- minor      2.5.3 -> 2.6.0
@@ -18,7 +19,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
-const SOURCE = join(ROOT, 'source.less')
+const METADATA = join(ROOT, 'src', 'metadata.less')
 const PKG = join(ROOT, 'package.json')
 
 const git = (...args) => execFileSync('git', args, { cwd: ROOT, encoding: 'utf8' }).trim()
@@ -46,9 +47,9 @@ if (!noPush) {
   if (behind !== '0') fail(`local master is ${behind} commit(s) behind origin — pull first`)
 }
 
-const source = await readFile(SOURCE, 'utf8')
-const current = source.match(/^@version\s+(\S+)\s*$/m)?.[1]
-if (!current) fail('no @version in source.less')
+const metadata = await readFile(METADATA, 'utf8')
+const current = metadata.match(/^@version\s+(\S+)\s*$/m)?.[1]
+if (!current) fail('no @version in src/metadata.less')
 
 let next
 if (/^\d+\.\d+\.\d+$/.test(bump)) {
@@ -65,7 +66,7 @@ if (git('tag', '--list', tag)) fail(`tag ${tag} already exists`)
 
 console.log(`${current} -> ${next}\n`)
 
-await writeFile(SOURCE, source.replace(/^@version\s+\S+\s*$/m, `@version        ${next}`))
+await writeFile(METADATA, metadata.replace(/^@version\s+\S+\s*$/m, `@version        ${next}`))
 
 const pkg = JSON.parse(await readFile(PKG, 'utf8'))
 pkg.version = next

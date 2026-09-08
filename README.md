@@ -43,13 +43,42 @@ Install [Stylus](https://add0n.com/stylus.html) for either [Firefox](https://add
 
 ## Development
 
-**`source.less` is the only file you edit.** Everything in `dist/` is generated from it,
+**`src/` holds the only files you edit.** Everything in `dist/` is generated from them,
 and `npm run build` overwrites it — changes made directly to a dist file are lost.
 
 ```
-source.less ──┬─ lessc ─────────────────► dist/gmail-dark.css            Mozilla format, manual install
-              └─ comment strip-block ───► dist/gmail-dark.less.user.css  usercss, what Stylus installs
+src/index.less ─► bundle ──┬─ lessc ─────────────────► dist/gmail-dark.css            Mozilla format, manual install
+                           └─ comment strip-block ───► dist/gmail-dark.less.user.css  usercss, what Stylus installs
 ```
+
+The source is split one file per `@-moz-document` block, so each file is the rules for a
+single page:
+
+| File | Targets |
+| --- | --- |
+| `src/index.less` | the manifest — `@import`s every partial below, in order |
+| `src/metadata.less` | the usercss `==UserStyle==` header — `@name`, `@version`, `@var` declarations |
+| `src/variables.less` | shared Less variables, including the strip-block fallbacks |
+| `src/gmail.less` | `mail.google.com/mail` — the main Gmail UI |
+| `src/tasks-panel.less` | `tasks.google.com/…/embed` — the Tasks side panel |
+| `src/keep-panel.less` | `keep.google.com/…/companion` — the Keep side panel |
+| `src/calendar-panel.less` | `calendar.google.com/…/companion` — the Calendar side panel |
+| `src/gmail-google-drawer.less` | `mail.google.com/mail` — the Google app switcher and account menu |
+
+The three panels are iframed from their own origins, so they need their own
+`@-moz-document` conditions. The Google drawer shares Gmail's, and is kept separate only
+because it styles the shared Google top bar rather than Gmail itself.
+
+`src/index.less` is the entry point and the manifest: the build inlines its `@import`s in
+order, so a new partial only needs an `@import` line added there. A `.less` file in `src/`
+that nothing imports is a build error, so one can't be silently dropped. Order matters only
+for the cascade between the two files that target the same page.
+
+The build inlines the imports rather than leaving them to `lessc` because the usercss
+output is the *source*, not compiled CSS — Stylus compiles that one file in the browser,
+where there is no filesystem to resolve a local `@import` against. Both outputs are
+therefore built from the same flattened bundle, and `lessc` errors are mapped back to the
+partial they came from (`src/keep-panel.less:10 — variable @nope is undefined`).
 
 `dist/` is committed on purpose — Stylus fetches the usercss straight from the raw GitHub URL,
 so the built files have to be in the repo.
@@ -57,10 +86,10 @@ so the built files have to be in the repo.
 ```sh
 npm install          # once
 npm run build        # regenerate both dists
-npm run check        # verify dist/ matches source.less (exits 1 if stale)
+npm run check        # verify dist/ matches src/ (exits 1 if stale)
 ```
 
-The `//<<<usercss-strip` / `//>>>usercss-strip` markers in `source.less` wrap the fallback
+The `//<<<usercss-strip` / `//>>>usercss-strip` markers in `src/variables.less` wrap the fallback
 variable block. It stays live in the source so `lessc` can compile standalone, and is
 commented out in the usercss so Stylus's `@var` declarations supply the values instead.
 
@@ -75,7 +104,7 @@ This bumps `@version`, rebuilds `dist/`, commits, tags and pushes. **The bump is
 compares `@version` to decide whether an update exists, so pushing changed CSS without
 bumping leaves every installed copy reporting itself up to date.
 
-Note that `@updateURL` in `source.less` points at *this* fork. If you re-fork, repoint it
+Note that `@updateURL` in `src/metadata.less` points at *this* fork. If you re-fork, repoint it
 before installing, or the first update check will overwrite your changes with upstream's.
 
 ## Update Notes
