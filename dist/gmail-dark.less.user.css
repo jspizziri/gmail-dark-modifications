@@ -838,8 +838,31 @@
         color: @text-color-de;
     }
     /*to*/
-    .wO.nr, .eV > .oj .vO {
-        background: @bg-color-1;
+    //.nr is Gmail's white recipient box. Our rule only covered `.wO.nr`, so the
+    //other variants stayed white — visible the moment the field is focused and
+    //expands. `input.agP` is the field you actually type into; Gmail paints it
+    //from a custom property, so the property is overridden as well as the
+    //background, in case the fallback is used elsewhere.
+    .wO.nr, .nr.wR, .eV > .oj .vO {
+        background: @bg-color-surface;
+        color: @text-color-de;
+    }
+    input.agP {
+        --pkw-background: @bg-color-surface;
+        background-color: @bg-color-surface;
+        color: @text-color-de;
+    }
+    //recipient chips, once the field is focused and the addresses become
+    //tokens: Gmail paints the row (.aGb), the chip wrapper (.agh) and the chip
+    //itself (.afV) white, with near-black label text. The chip keeps a lighter
+    //fill so it still reads as a token against the sheet.
+    .aGb, .agh {
+        background-color: @bg-color-surface;
+    }
+    .afV {
+        background-color: @bg-color-3;
+    }
+    .afT, .af0, .afZ, .akl, .af6, .afX {
         color: @text-color-de;
     }
     .gO, .vN > .vT, .J-JN-M-I, .gQ, .az9 {

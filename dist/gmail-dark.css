@@ -1029,8 +1029,29 @@
   }
   /*to*/
   .wO.nr,
+  .nr.wR,
   .eV > .oj .vO {
-    background: #111;
+    background: #2d2d2d;
+    color: #dedede;
+  }
+  input.agP {
+    --pkw-background: #2d2d2d;
+    background-color: #2d2d2d;
+    color: #dedede;
+  }
+  .aGb,
+  .agh {
+    background-color: #2d2d2d;
+  }
+  .afV {
+    background-color: #363636;
+  }
+  .afT,
+  .af0,
+  .afZ,
+  .akl,
+  .af6,
+  .afX {
     color: #dedede;
   }
   .gO,
