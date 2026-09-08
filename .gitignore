@@ -1,1 +1,10 @@
 node_modules/
+
+# local Gmail DOM capture used for testing — contains real mail, never commit
+gmail.html
+gmail_files/
+
+# test harness output
+test/
+.harness-*.html
+preview-*.html

@@ -209,6 +209,9 @@
   .aj5.J-KU-Jg {
     border-top-color: #212121;
   }
+  body {
+    background-color: #111 !important;
+  }
   .aic {
     background: none;
   }
@@ -562,7 +565,10 @@
   }
   .gs > div:not(.gE):not(.wj) {
     filter: invert(82.7451%) hue-rotate(180deg);
-    background-color: #fff;
+    background-color: transparent;
+  }
+  .gs {
+    background-color: #2d2d2d;
   }
   .gs > div:not(.gE):not(.wj) img {
     filter: invert(100%) hue-rotate(180deg) contrast(120%) saturate(120%);
@@ -1008,7 +1014,7 @@
   /*background*/
   .M9,
   .aoP .Ar {
-    background: #111;
+    background: #2d2d2d;
   }
   /*subject*/
   .aoT {
@@ -1028,6 +1034,12 @@
   .az9 {
     color: #999999;
   }
+  .aoD.hl,
+  td.Iy,
+  .oL.aDm,
+  .aDr {
+    color: #dedede;
+  }
   .vR > .vN {
     background-color: #212121;
     border-color: #212121;
@@ -1038,12 +1050,12 @@
   }
   /*body*/
   .Am:not(.aO9) {
-    background: #111;
+    background: #2d2d2d;
     color: #dedede;
   }
   /*tools*/
   .aDg > .aDj {
-    background: #111;
+    background: #2d2d2d;
   }
   .dv,
   .Xv.T-I.J-JN-M-I > .J-JN-M-I-JG,
@@ -1058,7 +1070,7 @@
   /*extra tools*/
   #\:1dv,
   .bA3 > div {
-    background: #111;
+    background: #2d2d2d;
   }
   #\:1f2,
   .aZ > .J-Z {
@@ -1110,17 +1122,28 @@
   }
   .Am.aO9 {
     filter: invert(82.7451%) hue-rotate(180deg);
-    background-color: #fff;
+    background-color: transparent;
+  }
+  td.Ap,
+  td.Ap > .Ar.Au {
+    background-color: #2d2d2d;
+  }
+  .aSG {
+    background-color: #2d2d2d;
+  }
+  .aYy {
+    background-color: #212121;
   }
   .HM .et,
   .HM .btC,
   .IG,
   .aC3,
   .GP {
-    background: #111;
+    background: #2d2d2d;
   }
   .HM .I5 {
-    border-radius: 4px;
+    background-color: #2d2d2d;
+    border-radius: 16px;
     border-color: #363636;
   }
   .HM .I5:hover {

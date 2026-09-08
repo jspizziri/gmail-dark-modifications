@@ -235,6 +235,14 @@
     .aj5.J-KU-Jg {
         border-top-color: @bg-color-2;
     }
+    //Gmail leaves <body> at its own near-white #f8fafd, and the theme never
+    //covered it, so it shows anywhere a gap opens up between painted elements.
+    //!important because Gmail sets it through a class (body.aAU), which
+    //outranks a bare `body` — same reason the other broad background
+    //overrides in this file carry it.
+    body {
+        background-color: @bg-color-1 !important;
+    }
     //stop white flash behind fab
     .aic {
         background: none;
@@ -533,9 +541,15 @@
         }
     }
     //invert and fix colors for email body
+    //the sheet colour is painted by .gs below, outside the filter, so the one
+    //large flat field in the message is a literal themed value rather than a
+    //filter output — it can't drift away from the surrounding chrome
     .gs > div:not(.gE):not(.wj) {
         filter: invert(82.7451%) hue-rotate(180deg);
-        background-color: #fff;
+        background-color: transparent;
+    }
+    .gs {
+        background-color: @bg-color-surface;
     }
     //re-adjust images
     .gs > div:not(.gE):not(.wj) img {
@@ -799,8 +813,10 @@
         color: @text-color-de;
     }
     /*background*/
+    //.M9 covers the whole reply region, including the avatar gutter left of the
+    //card, so it belongs to the same raised surface rather than the page behind
     .M9, .aoP .Ar {
-        background: @bg-color-1;
+        background: @bg-color-surface;
     }
     /*subject*/
     .aoT {
@@ -815,6 +831,12 @@
     .gO, .vN > .vT, .J-JN-M-I, .gQ, .az9 {
         color: @text-color-9;
     }
+    //the recipient list sits outside the email-body filter, so it keeps Gmail's
+    //light-theme text colours (#222 on the row, #444746 on the addresses) and
+    //all but vanishes on the dark card. Match it to the body text instead.
+    .aoD.hl, td.Iy, .oL.aDm, .aDr {
+        color: @text-color-de;
+    }
     .vR > .vN {
         background-color: @bg-color-2;
         border-color: @bg-color-2;
@@ -825,12 +847,12 @@
     }
     /*body*/
     .Am:not(.aO9) {
-        background: @bg-color-1;
+        background: @bg-color-surface;
         color: @text-color-de;
     }
     /*tools*/
     .aDg > .aDj {
-        background: @bg-color-1;
+        background: @bg-color-surface;
     }
     .dv, .Xv.T-I.J-JN-M-I > .J-JN-M-I-JG, .og.T-I-J3, .J-Z-M-I-J6-H > .J-Z-M-I-JG, .aaA {
         filter: invert(100%);
@@ -840,7 +862,7 @@
     }
     /*extra tools*/
     #\:1dv, .bA3>div {
-        background: @bg-color-1;
+        background: @bg-color-surface;
     }
     #\:1f2, .aZ > .J-Z {
         background: @bg-color-1;
@@ -889,15 +911,44 @@
         }
     }
 //QUICK COMPOSE (IN EMAIL)
+    //transparent for the same reason as the email body above: the sheet colour
+    //is painted below, outside the filter, so it can't drift between displays
     .Am.aO9 {
         filter: invert(82.7451%) hue-rotate(180deg);
-        background-color: #fff;
+        background-color: transparent;
     }
+    //td.Ap is white in Gmail's own CSS and shows through the rounded corners of
+    //.Ar.Au, so both are painted to keep the corners from flashing white
+    td.Ap, td.Ap > .Ar.Au {
+        background-color: @bg-color-surface;
+    }
+    //attachment chips in the reply sit outside the filter, so they keep Gmail's
+    //white card colours unless painted
+    .aSG {
+        background-color: @bg-color-surface;
+    }
+    .aYy {
+        background-color: @bg-color-2;
+    }
+    //the reply/compose sheet is a raised surface like the message card (.gs),
+    //not app chrome — every part of the frame uses @bg-color-surface so the
+    //editable area does not float inside a black border
     .HM .et, .HM .btC, .IG, .aC3, .GP {
-        background: @bg-color-1;
+        background: @bg-color-surface;
     }
+    //.I5 is the cell the reply frame sits in, and Gmail paints it white. The
+    //frame's rounded ends (.IG top, .aDj bottom) are 16px against this 4px
+    //radius, so the mismatch showed the white through as a crescent in each
+    //corner. Painting it @bg-color-1 — what .IG and .aDj already use — makes
+    //the corner blend whatever the radii are. Scoped to .HM to outrank Gmail's
+    //own .HM-scoped rule.
     .HM .I5 {
-        border-radius: @button-border-rad;
+        background-color: @bg-color-surface;
+        //16px, not @button-border-rad, because the frame's rounded ends are
+        //Gmail's own hardcoded 16px (.IG top, .aDj bottom) and this cell has to
+        //match them. Overriding it to 4px is what put a square notch in each
+        //corner; Gmail's own value for .I5 is 16px too.
+        border-radius: 16px;
         border-color: @bg-color-3;
         &:hover {
             box-shadow: 0 1px 2px 0 rgba(0,0,0,0.302),0 2px 6px 2px rgba(0,0,0,0.149);
