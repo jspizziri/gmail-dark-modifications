@@ -1008,6 +1008,12 @@
   .Ht {
     background: #0b0b0b;
   }
+  .Hy.Hy .l.m {
+    background-color: #212121;
+  }
+  .aaZ {
+    background-color: #2d2d2d;
+  }
   .Hp {
     color: #dedede;
   }
@@ -1018,8 +1024,8 @@
   }
   /*subject*/
   .aoT {
-    background: #111;
-    color: #999999;
+    background: #2d2d2d;
+    color: #dedede;
   }
   /*to*/
   .wO.nr,
@@ -1050,8 +1056,8 @@
   }
   /*body*/
   .Am:not(.aO9) {
-    background: #2d2d2d;
-    color: #dedede;
+    filter: invert(82.7451%) hue-rotate(180deg);
+    background-color: transparent;
   }
   /*tools*/
   .aDg > .aDj {
@@ -1111,6 +1117,9 @@
   }
   .dC .v7.T-I-atl {
     border-radius: 4px 0 0 4px;
+  }
+  .dC .v7.T-I.T-I-atl {
+    background: #ff7c68;
   }
   .dC .hG.T-I {
     border-radius: 0 4px 4px 0;

@@ -809,6 +809,18 @@
     .Ht {
         background: #0b0b0b;
     }
+    //the pop-out compose title bar; Gmail paints it #f0f4f9 and the theme never
+    //covered it, so "New Message" sat on a white strip. Needs to outrank
+    //Gmail's own `.Hy.Hy .m`, hence the doubled class.
+    .Hy.Hy .l.m {
+        background-color: @bg-color-2;
+    }
+    //.aaZ is the pop-out compose dialog's own surface and Gmail leaves it white.
+    //Nothing else covers it, so it shows through the title bar and behind the
+    //recipient rows. Same raised surface as the inline reply.
+    .aaZ {
+        background-color: @bg-color-surface;
+    }
     .Hp {
         color: @text-color-de;
     }
@@ -819,9 +831,11 @@
         background: @bg-color-surface;
     }
     /*subject*/
+    //the subject line is part of the compose sheet, not an inset control, so it
+    //takes the same surface rather than reading as a black bar cut into it
     .aoT {
-        background: @bg-color-1;
-        color: @text-color-9;
+        background: @bg-color-surface;
+        color: @text-color-de;
     }
     /*to*/
     .wO.nr, .eV > .oj .vO {
@@ -846,9 +860,13 @@
         }
     }
     /*body*/
+    //Filtered exactly like the inline reply (.Am.aO9). Without it the pop-out
+    //compose renders pasted content and the signature in their own light-theme
+    //colours — white quote boxes, near-black text — because nothing inverts
+    //them. The sheet colour is painted by td.Ap / .Ar.Au outside the filter.
     .Am:not(.aO9) {
-        background: @bg-color-surface;
-        color: @text-color-de;
+        filter: invert(82.7451%) hue-rotate(180deg);
+        background-color: transparent;
     }
     /*tools*/
     .aDg > .aDj {
@@ -898,8 +916,13 @@
         &:hover {
             box-shadow: none;
         }
+        //the accent only reached the dropdown half; Gmail paints the Send half
+        //blue via `.gU .v7.T-I:not(.btz)`, so this needs the same weight to win
         .v7.T-I-atl {
             border-radius: @button-border-rad 0 0 @button-border-rad;
+        }
+        .v7.T-I.T-I-atl {
+            background: @button-bg;
         }
         .hG.T-I {
             border-radius: 0 @button-border-rad @button-border-rad 0;
