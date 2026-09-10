@@ -1,4 +1,6 @@
 node_modules/
+.DS_Store
+__pycache__/
 
 # saved Gmail pages used as test fixtures, and everything generated from them —
 # these contain real mail, never commit

@@ -432,8 +432,15 @@
             filter: invert(100%);
         }
     }
+    //sticky reply/reply-all/forward bar. It is sticky, so the message scrolls
+    //underneath it — the fill has to be opaque or the mail reads through the
+    //buttons. Matches the reading pane behind it, and Gmail's own top edge
+    //highlight is a near-white line that has to come down with it.
     .nH.btDi4d {
-        background-color: transparent;
+        background-color: @bg-color-surface;
+    }
+    .nH.btDi4d.tyMQmc {
+        box-shadow: 0 -3px 2px -2px rgba(0, 0, 0, .4);
     }
     //labels
     .hU.hM {
@@ -449,6 +456,31 @@
     //details dropdown arrow
     img.ajz {
         filter: invert(100%);
+    }
+    //"show details" popover. It is a sibling of the message body inside .gs, so
+    //the body's invert filter and transparent fill reach it as well; it is
+    //chrome rather than mail, so it is excluded from that filter below and
+    //given the same surface as the other popovers instead
+    .ajA {
+        background-color: @bg-color-context;
+        border-radius: @button-border-rad;
+        box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+        color: @text-color-de;
+        //row labels
+        .gG, .ajB .gG {
+            color: @text-color-9;
+        }
+        //row values
+        .gL .gI {
+            color: @text-color-de;
+        }
+        a {
+            color: @text-color-blue;
+        }
+        //encryption padlock sprite
+        .bg0 {
+            filter: invert(1);
+        }
     }
     //other email details
     .go,
@@ -544,7 +576,7 @@
     //the sheet colour is painted by .gs below, outside the filter, so the one
     //large flat field in the message is a literal themed value rather than a
     //filter output — it can't drift away from the surrounding chrome
-    .gs > div:not(.gE):not(.wj) {
+    .gs > div:not(.gE):not(.wj):not(.ajA) {
         filter: invert(82.7451%) hue-rotate(180deg);
         background-color: transparent;
     }
@@ -552,11 +584,11 @@
         background-color: @bg-color-surface;
     }
     //re-adjust images
-    .gs > div:not(.gE):not(.wj) img {
+    .gs > div:not(.gE):not(.wj):not(.ajA) img {
         filter: invert(100%) hue-rotate(180deg) contrast(120%) saturate(120%);
     }
     //text select
-    .gs > div:not(.gE):not(.wj) ::selection {
+    .gs > div:not(.gE):not(.wj):not(.ajA) ::selection {
         color: @text-color-blue !important;
         background: #000;
     }
@@ -588,6 +620,29 @@
     }
     .brb {
         box-shadow: inset 0 -1px 0 0 rgba(172, 172, 172, .122);
+    }
+    //"Suggested reply" header above the smart-reply card. Its label and the
+    //sparkle glyph beside it inherit Gmail's near-black body colour, and the
+    //feedback icon button next to them carries its own gm3 colour token, so
+    //both are set here; .aoH svgs fill from currentColor
+    .vIQNqd .udN2Pc {
+        color: @text-color-9;
+    }
+    .vIQNqd .l17XZb .Y7YbJb {
+        --gm3-icon-button-standard-unselected-icon-color: @text-color-9;
+        --gm3-icon-button-standard-unselected-hover-icon-color: @text-color-de;
+        --gm3-icon-button-standard-unselected-focus-icon-color: @text-color-de;
+        --gm3-icon-button-standard-unselected-pressed-icon-color: @text-color-de;
+    }
+    //suggested reply card
+    .DJwJ8b .Kz7eFc {
+        border: 1px solid #555;
+        &:hover {
+            border: 1px solid #777;
+        }
+    }
+    .V97zWc {
+        color: @text-color-b;
     }
     /*actions buttons*/
     .amn > .ams {
